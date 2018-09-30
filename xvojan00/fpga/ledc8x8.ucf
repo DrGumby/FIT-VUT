@@ -1,0 +1,11 @@
+# SMCLK je hlavni hodinovy vstup, zde pro nej specifikujeme kmitocet,
+# ktery na FITkitu ma hodnotu 7.3728 MHz...
+NET SMCLK TNM_NET = smclk_pin;
+TIMESPEC TS_smclk_pin = PERIOD smclk_pin 7.3728 MHz;
+# ...a samozrejme mu i priradime pin na FPGA podle schematu k FITkitu.
+NET SMCLK      LOC = P80;
+
+# doplnte mapovani pinu pro ostatni signaly entity
+NET RESET      LOC = P155;
+NET ROW<0>     LOC = P204;
+NET ROW<1>     LOC = P2;
