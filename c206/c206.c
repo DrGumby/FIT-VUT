@@ -111,20 +111,17 @@ void DLInsertFirst(tDLList *L, int val) {
   tDLElemPtr newItem = (tDLElemPtr)malloc(sizeof(struct tDLElem));
   if (newItem == NULL) {
     DLError();
-  }
-else{
-
-
-  newItem->data = val;
-  newItem->lptr = NULL;
-  newItem->rptr = L->First;
-  if (L->First != NULL) {
-    L->First->lptr = newItem;
   } else {
-    L->Last = newItem;
+    newItem->data = val;
+    newItem->lptr = NULL;
+    newItem->rptr = L->First;
+    if (L->First != NULL) {
+      L->First->lptr = newItem;
+    } else {
+      L->Last = newItem;
+    }
+    L->First = newItem;
   }
-  L->First = newItem;
-}
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
