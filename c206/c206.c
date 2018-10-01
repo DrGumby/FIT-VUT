@@ -97,6 +97,7 @@ void DLDisposeList(tDLList *L) {
     L->First = delItemPtr->rptr;
     free(delItemPtr);
   }
+  L->Act = NULL;
 
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
