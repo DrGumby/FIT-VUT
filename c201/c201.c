@@ -50,143 +50,159 @@ int errflg;
 int solved;
 
 void Error() {
-/*
-** Vytiskne upozornění na to, že došlo k chybě.
-** Tato funkce bude volána z některých dále implementovaných operací.
-**/
-    printf ("*ERROR* The program has performed an illegal operation.\n");
-    errflg = TRUE;                      /* globální proměnná -- příznak chyby */
+  /*
+  ** Vytiskne upozornění na to, že došlo k chybě.
+  ** Tato funkce bude volána z některých dále implementovaných operací.
+  **/
+  printf("*ERROR* The program has performed an illegal operation.\n");
+  errflg = TRUE; /* globální proměnná -- příznak chyby */
 }
 
-void InitList (tList *L) {
-/*
-** Provede inicializaci seznamu L před jeho prvním použitím (tzn. žádná
-** z následujících funkcí nebude volána nad neinicializovaným seznamem).
-** Tato inicializace se nikdy nebude provádět nad již inicializovaným
-** seznamem, a proto tuto možnost neošetřujte. Vždy předpokládejte,
-** že neinicializované proměnné mají nedefinovanou hodnotu.
-**/
-	
+void InitList(tList *L) {
+  /*
+  ** Provede inicializaci seznamu L před jeho prvním použitím (tzn. žádná
+  ** z následujících funkcí nebude volána nad neinicializovaným seznamem).
+  ** Tato inicializace se nikdy nebude provádět nad již inicializovaným
+  ** seznamem, a proto tuto možnost neošetřujte. Vždy předpokládejte,
+  ** že neinicializované proměnné mají nedefinovanou hodnotu.
+  **/
+  L->First = NULL;
+  L->Act = NULL;
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+  // solved = FALSE;                   /* V případě řešení, smažte tento řádek!
+  // */
 }
 
-void DisposeList (tList *L) {
-/*
-** Zruší všechny prvky seznamu L a uvede seznam L do stavu, v jakém se nacházel
-** po inicializaci. Veškerá paměť používaná prvky seznamu L bude korektně
-** uvolněna voláním operace free.
-***/
-	
+void DisposeList(tList *L) {
+  /*
+  ** Zruší všechny prvky seznamu L a uvede seznam L do stavu, v jakém se
+  *nacházel
+  ** po inicializaci. Veškerá paměť používaná prvky seznamu L bude korektně
+  ** uvolněna voláním operace free.
+  ***/
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void InsertFirst (tList *L, int val) {
-/*
-** Vloží prvek s hodnotou val na začátek seznamu L.
-** V případě, že není dostatek paměti pro nový prvek při operaci malloc,
-** volá funkci Error().
-**/
-    
+void InsertFirst(tList *L, int val) {
+  /*
+  ** Vloží prvek s hodnotou val na začátek seznamu L.
+  ** V případě, že není dostatek paměti pro nový prvek při operaci malloc,
+  ** volá funkci Error().
+  **/
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+  tElemPtr newItemPtr = (tElemPtr)malloc(sizeof(struct tElem));
+  if (newItemPtr == NULL) {
+    Error();
+  }
+  newItemPtr->data = val;
+  newItemPtr->ptr = L->First;
+  L->First = newItemPtr;
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void First (tList *L) {
-/*
-** Nastaví aktivitu seznamu L na jeho první prvek.
-** Funkci implementujte jako jediný příkaz, aniž byste testovali,
-** zda je seznam L prázdný.
-**/
-	
+void First(tList *L) {
+  /*
+  ** Nastaví aktivitu seznamu L na jeho první prvek.
+  ** Funkci implementujte jako jediný příkaz, aniž byste testovali,
+  ** zda je seznam L prázdný.
+  **/
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+  L->Act = L->First;
+  //solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void CopyFirst (tList *L, int *val) {
-/*
-** Prostřednictvím parametru val vrátí hodnotu prvního prvku seznamu L.
-** Pokud je seznam L prázdný, volá funkci Error().
-**/
-	
+void CopyFirst(tList *L, int *val) {
+  /*
+  ** Prostřednictvím parametru val vrátí hodnotu prvního prvku seznamu L.
+  ** Pokud je seznam L prázdný, volá funkci Error().
+  **/
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+  if (L->First == NULL)
+    Error();
+  else
+    *val = L->First->data;
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void DeleteFirst (tList *L) {
-/*
-** Zruší první prvek seznamu L a uvolní jím používanou paměť.
-** Pokud byl rušený prvek aktivní, aktivita seznamu se ztrácí.
-** Pokud byl seznam L prázdný, nic se neděje.
-**/
-	
+void DeleteFirst(tList *L) {
+  /*
+  ** Zruší první prvek seznamu L a uvolní jím používanou paměť.
+  ** Pokud byl rušený prvek aktivní, aktivita seznamu se ztrácí.
+  ** Pokud byl seznam L prázdný, nic se neděje.
+  **/
+  if (L->First == NULL) {
+    return;
+  }
 
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
-}	
+  tElemPtr firstItem;
+  firstItem = L->First;
+  if(L->Act == L->First)
+    L->Act = NULL;
+  L->First = L->First->ptr;
+  free(firstItem);
 
-void PostDelete (tList *L) {
-/* 
-** Zruší prvek seznamu L za aktivním prvkem a uvolní jím používanou paměť.
-** Pokud není seznam L aktivní nebo pokud je aktivní poslední prvek seznamu L,
-** nic se neděje.
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void PostInsert (tList *L, int val) {
-/*
-** Vloží prvek s hodnotou val za aktivní prvek seznamu L.
-** Pokud nebyl seznam L aktivní, nic se neděje!
-** V případě, že není dostatek paměti pro nový prvek při operaci malloc,
-** zavolá funkci Error().
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+void PostDelete(tList *L) {
+  /*
+  ** Zruší prvek seznamu L za aktivním prvkem a uvolní jím používanou paměť.
+  ** Pokud není seznam L aktivní nebo pokud je aktivní poslední prvek seznamu L,
+  ** nic se neděje.
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void Copy (tList *L, int *val) {
-/*
-** Prostřednictvím parametru val vrátí hodnotu aktivního prvku seznamu L.
-** Pokud seznam není aktivní, zavolá funkci Error().
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+void PostInsert(tList *L, int val) {
+  /*
+  ** Vloží prvek s hodnotou val za aktivní prvek seznamu L.
+  ** Pokud nebyl seznam L aktivní, nic se neděje!
+  ** V případě, že není dostatek paměti pro nový prvek při operaci malloc,
+  ** zavolá funkci Error().
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void Actualize (tList *L, int val) {
-/*
-** Přepíše data aktivního prvku seznamu L hodnotou val.
-** Pokud seznam L není aktivní, nedělá nic!
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+void Copy(tList *L, int *val) {
+  /*
+  ** Prostřednictvím parametru val vrátí hodnotu aktivního prvku seznamu L.
+  ** Pokud seznam není aktivní, zavolá funkci Error().
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void Succ (tList *L) {
-/*
-** Posune aktivitu na následující prvek seznamu L.
-** Všimněte si, že touto operací se může aktivní seznam stát neaktivním.
-** Pokud není předaný seznam L aktivní, nedělá funkce nic.
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+void Actualize(tList *L, int val) {
+  /*
+  ** Přepíše data aktivního prvku seznamu L hodnotou val.
+  ** Pokud seznam L není aktivní, nedělá nic!
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-int Active (tList *L) {
-/*
-** Je-li seznam L aktivní, vrací nenulovou hodnotu, jinak vrací 0.
-** Tuto funkci je vhodné implementovat jedním příkazem return. 
-**/
-	
-	
- solved = FALSE;                   /* V případě řešení, smažte tento řádek! */
+void Succ(tList *L) {
+  /*
+  ** Posune aktivitu na následující prvek seznamu L.
+  ** Všimněte si, že touto operací se může aktivní seznam stát neaktivním.
+  ** Pokud není předaný seznam L aktivní, nedělá funkce nic.
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
+}
+
+int Active(tList *L) {
+  /*
+  ** Je-li seznam L aktivní, vrací nenulovou hodnotu, jinak vrací 0.
+  ** Tuto funkci je vhodné implementovat jedním příkazem return.
+  **/
+
+  solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
 /* Konec c201.c */
