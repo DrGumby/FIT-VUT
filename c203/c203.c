@@ -51,113 +51,155 @@
 
 #include "c203.h"
 
-void queueError (int error_code) {
-/*
-** Vytiskne upozornění na to, že došlo k chybě.
-** Tato funkce bude volána z některých dále implementovaných operací.
-**
-** TUTO FUNKCI, PROSÍME, NEUPRAVUJTE!
-*/
-	static const char* QERR_STRINGS[MAX_QERR+1] = {"Unknown error","Queue error: UP","Queue error: FRONT","Queue error: REMOVE","Queue error: GET","Queue error: INIT"};
-	if ( error_code <= 0 || error_code > MAX_QERR )
-		error_code = 0;
-	printf ( "%s\n", QERR_STRINGS[error_code] );
-	err_flag = 1;
+void queueError(int error_code) {
+  /*
+  ** Vytiskne upozornění na to, že došlo k chybě.
+  ** Tato funkce bude volána z některých dále implementovaných operací.
+  **
+  ** TUTO FUNKCI, PROSÍME, NEUPRAVUJTE!
+  */
+  static const char *QERR_STRINGS[MAX_QERR + 1] = {
+      "Unknown error",       "Queue error: UP",  "Queue error: FRONT",
+      "Queue error: REMOVE", "Queue error: GET", "Queue error: INIT"};
+  if (error_code <= 0 || error_code > MAX_QERR)
+    error_code = 0;
+  printf("%s\n", QERR_STRINGS[error_code]);
+  err_flag = 1;
 }
 
-void queueInit (tQueue* q) {
-/*
-** Inicializujte frontu následujícím způsobem:
-** - všechny hodnoty v poli q->arr nastavte na '*',
-** - index na začátek fronty nastavte na 0,
-** - index prvního volného místa nastavte také na 0.
-**
-** V případě, že funkce dostane jako parametr q == NULL, volejte funkci
-** queueError(QERR_INIT).
-*/
+void queueInit(tQueue *q) {
+  /*
+  ** Inicializujte frontu následujícím způsobem:
+  ** - všechny hodnoty v poli q->arr nastavte na '*',
+  ** - index na začátek fronty nastavte na 0,
+  ** - index prvního volného místa nastavte také na 0.
+  **
+  ** V případě, že funkce dostane jako parametr q == NULL, volejte funkci
+  ** queueError(QERR_INIT).
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+  if (q == NULL) {
+    queueError(QERR_INIT);
+  } else {
+    q->f_index = 0;
+    q->b_index = 0;
+
+    for (int i = 0; i < QUEUE_SIZE; i++) {
+      q->arr[i] = '*';
+    }
+  }
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-int nextIndex (int index) {
-/*
-** Pomocná funkce, která vrací index následujícího prvku v poli.
-** Funkci implementujte jako jediný prikaz využívající operace '%'.
-** Funkci nextIndex budete využívat v dalších implementovaných funkcích.
-*/
-
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
-
+int nextIndex(int index) {
+  /*
+  ** Pomocná funkce, která vrací index následujícího prvku v poli.
+  ** Funkci implementujte jako jediný prikaz využívající operace '%'.
+  ** Funkci nextIndex budete využívat v dalších implementovaných funkcích.
+  */
+  return ((index + 1) % QUEUE_SIZE);
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-int queueEmpty (const tQueue* q) {
-/*
-** Vrací nenulovou hodnotu, pokud je frona prázdná, jinak vrací hodnotu 0. 
-** Funkci je vhodné implementovat jedním příkazem return.
-*/
+int queueEmpty(const tQueue *q) {
+  /*
+  ** Vrací nenulovou hodnotu, pokud je frona prázdná, jinak vrací hodnotu 0.
+  ** Funkci je vhodné implementovat jedním příkazem return.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+  return (q->f_index == q->b_index);
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-int queueFull (const tQueue* q) {
-/*
-** Vrací nenulovou hodnotu, je-li fronta plná, jinak vrací hodnotu 0. 
-** Funkci je vhodné implementovat jedním příkazem return
-** s využitím pomocné funkce nextIndex.
-*/
+int queueFull(const tQueue *q) {
+  /*
+  ** Vrací nenulovou hodnotu, je-li fronta plná, jinak vrací hodnotu 0.
+  ** Funkci je vhodné implementovat jedním příkazem return
+  ** s využitím pomocné funkce nextIndex.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+  return (nextIndex(q->b_index) == q->f_index);
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void queueFront (const tQueue* q, char* c) {
-/*
-** Prostřednictvím parametru c vrátí znak ze začátku fronty q.
-** Pokud je fronta prázdná, ošetřete to voláním funkce queueError(QERR_FRONT).
-** Volání této funkce při prázdné frontě je vždy nutné považovat za nekorektní.
-** Bývá to totiž důsledek špatného návrhu algoritmu, ve kterém je fronta
-** použita. O takové situaci se proto musí programátor-vývojář dozvědět.
-** V opačném případě je ladění programů obtížnější!
-**
-** Při implementaci využijte dříve definované funkce queueEmpty.
-*/
+void queueFront(const tQueue *q, char *c) {
+  /*
+  ** Prostřednictvím parametru c vrátí znak ze začátku fronty q.
+  ** Pokud je fronta prázdná, ošetřete to voláním funkce queueError(QERR_FRONT).
+  ** Volání této funkce při prázdné frontě je vždy nutné považovat za
+  *nekorektní.
+  ** Bývá to totiž důsledek špatného návrhu algoritmu, ve kterém je fronta
+  ** použita. O takové situaci se proto musí programátor-vývojář dozvědět.
+  ** V opačném případě je ladění programů obtížnější!
+  **
+  ** Při implementaci využijte dříve definované funkce queueEmpty.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+  if (queueEmpty(q)) {
+    queueError(QERR_FRONT);
+  } else {
+    *c = q->arr[q->f_index];
+  }
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void queueRemove (tQueue* q) {
-/*
-** Odstraní znak ze začátku fronty q. Pokud je fronta prázdná, ošetřete
-** vzniklou chybu voláním funkce queueError(QERR_REMOVE).
-** Hodnotu na uvolněné pozici ve frontě nijak neošetřujte (nepřepisujte).
-** Při implementaci využijte dříve definované funkce queueEmpty a nextIndex.
-*/
+void queueRemove(tQueue *q) {
+  /*
+  ** Odstraní znak ze začátku fronty q. Pokud je fronta prázdná, ošetřete
+  ** vzniklou chybu voláním funkce queueError(QERR_REMOVE).
+  ** Hodnotu na uvolněné pozici ve frontě nijak neošetřujte (nepřepisujte).
+  ** Při implementaci využijte dříve definované funkce queueEmpty a nextIndex.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+	if (queueEmpty(q)) {
+		queueError(QERR_REMOVE);
+	} else{
+		q->f_index = nextIndex(q->f_index);
+	}
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void queueGet (tQueue* q, char* c) {
-/*
-** Odstraní znak ze začátku fronty a vrátí ho prostřednictvím parametru c.
-** Pokud je fronta prázdná, ošetřete to voláním funkce queueError(QERR_GET).
-**
-** Při implementaci využijte dříve definovaných funkcí queueEmpty,
-** queueFront a queueRemove.
-*/
+void queueGet(tQueue *q, char *c) {
+  /*
+  ** Odstraní znak ze začátku fronty a vrátí ho prostřednictvím parametru c.
+  ** Pokud je fronta prázdná, ošetřete to voláním funkce queueError(QERR_GET).
+  **
+  ** Při implementaci využijte dříve definovaných funkcí queueEmpty,
+  ** queueFront a queueRemove.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+	if (queueEmpty(q)) {
+		queueError(QERR_GET);
+	} else {
+		queueFront(q, c);
+		queueRemove(q);
+	}
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
-void queueUp (tQueue* q, char c) {
-/*
-** Vloží znak c do fronty. Pokud je fronta plná, ošetřete chybu voláním
-** funkce queueError(QERR_UP). Vkládání do plné fronty se považuje za
-** nekorektní operaci. Situace by mohla být řešena i tak, že by operace
-** neprováděla nic, ale v případě použití takto definované abstrakce by se
-** obtížně odhalovaly chyby v algoritmech, které by abstrakci využívaly.
-**
-** Při implementaci využijte dříve definovaných funkcí queueFull a nextIndex.
-*/
+void queueUp(tQueue *q, char c) {
+  /*
+  ** Vloží znak c do fronty. Pokud je fronta plná, ošetřete chybu voláním
+  ** funkce queueError(QERR_UP). Vkládání do plné fronty se považuje za
+  ** nekorektní operaci. Situace by mohla být řešena i tak, že by operace
+  ** neprováděla nic, ale v případě použití takto definované abstrakce by se
+  ** obtížně odhalovaly chyby v algoritmech, které by abstrakci využívaly.
+  **
+  ** Při implementaci využijte dříve definovaných funkcí queueFull a nextIndex.
+  */
 
-	  solved = FALSE;                  /* V případě řešení, smažte tento řádek! */
+	if (queueFull(q)) {
+		queueError(QERR_UP);
+	} else {
+		q->arr[q->b_index] = c;
+		q->b_index = nextIndex(q->b_index);
+	}
+
+  // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 /* Konec příkladu c203.c */
