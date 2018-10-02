@@ -83,7 +83,7 @@ void DisposeList(tList *L) {
 
   tElemPtr delItemPtr = L->First;
 
-  while(L->First != NULL){
+  while (L->First != NULL) {
     delItemPtr = L->First;
     L->First = delItemPtr->ptr;
     free(delItemPtr);
@@ -101,10 +101,11 @@ void InsertFirst(tList *L, int val) {
   tElemPtr newItemPtr = (tElemPtr)malloc(sizeof(struct tElem));
   if (newItemPtr == NULL) {
     Error();
+  } else {
+    newItemPtr->data = val;
+    newItemPtr->ptr = L->First;
+    L->First = newItemPtr;
   }
-  newItemPtr->data = val;
-  newItemPtr->ptr = L->First;
-  L->First = newItemPtr;
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -182,8 +183,8 @@ void PostInsert(tList *L, int val) {
     return;
   }
 
-  tElemPtr newItemPtr = (tElemPtr) malloc(sizeof(struct tElem));
-  if(newItemPtr == NULL){
+  tElemPtr newItemPtr = (tElemPtr)malloc(sizeof(struct tElem));
+  if (newItemPtr == NULL) {
     Error();
   }
 
@@ -203,10 +204,9 @@ void Copy(tList *L, int *val) {
 
   if (L->Act == NULL) {
     Error();
+  } else {
+    *val = L->Act->data;
   }
-
-  *val = L->Act->data;
-
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
