@@ -78,14 +78,14 @@ void queueInit(tQueue *q) {
   ** queueError(QERR_INIT).
   */
 
-  if (q == NULL) {
+  if (q == NULL) {              //Test for invalid parameter
     queueError(QERR_INIT);
   } else {
     q->f_index = 0;
     q->b_index = 0;
 
     for (int i = 0; i < QUEUE_SIZE; i++) {
-      q->arr[i] = '*';
+      q->arr[i] = '*';                          //Fill queue with '*'
     }
   }
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */

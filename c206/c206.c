@@ -90,7 +90,7 @@ void DLDisposeList(tDLList *L) {
   ** uvolněny voláním operace free.
   **/
 
-  tDLElemPtr delItemPtr = L->First;
+  tDLElemPtr delItemPtr = L->First;     //Create temporary item
 
   while (L->First != NULL) {
     delItemPtr = L->First;
@@ -111,7 +111,7 @@ void DLInsertFirst(tDLList *L, int val) {
 
   tDLElemPtr newItem = (tDLElemPtr)malloc(sizeof(struct tDLElem));
   if (newItem == NULL) {
-    DLError();
+    DLError();             //Malloc error
   } else {
     newItem->data = val;
     newItem->lptr = NULL;
@@ -135,7 +135,7 @@ void DLInsertLast(tDLList *L, int val) {
 
   tDLElemPtr newItem = (tDLElemPtr)malloc(sizeof(struct tDLElem));
   if (newItem == NULL) {
-    DLError();
+    DLError();       //Malloc error
   } else {
     newItem->data = val;
     newItem->rptr = NULL;
@@ -211,7 +211,7 @@ void DLDeleteFirst(tDLList *L) {
     return;
   }
 
-  tDLElemPtr delItemPtr;
+  tDLElemPtr delItemPtr;     //Temporary item
   delItemPtr = L->First;
   if (L->Act == L->First) {
     L->Act = NULL;
@@ -277,7 +277,7 @@ void DLPreDelete(tDLList *L) {
     return;
   }
 
-  tDLElemPtr delItemPtr;
+  tDLElemPtr delItemPtr;                      //Temporary item
   delItemPtr = L->Act->lptr;
 
   L->Act->lptr = delItemPtr->lptr;
@@ -305,7 +305,7 @@ void DLPostInsert(tDLList *L, int val) {
 
   tDLElemPtr newItemPtr = (tDLElemPtr)malloc(sizeof(struct tDLElem));
   if (newItemPtr == NULL) {
-    DLError();
+    DLError();                    //Malloc error
   } else {
     newItemPtr->data = val;
     newItemPtr->lptr = L->Act;
@@ -335,7 +335,7 @@ void DLPreInsert(tDLList *L, int val) {
   }
 
   tDLElemPtr newItemPtr = (tDLElemPtr)malloc(sizeof(struct tDLElem));
-  if (newItemPtr == NULL) {
+  if (newItemPtr == NULL) {                   //Malloc error
     DLError();
   } else {
     newItemPtr->data = val;

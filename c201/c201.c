@@ -159,7 +159,7 @@ void PostDelete(tList *L) {
   ** Pokud není seznam L aktivní nebo pokud je aktivní poslední prvek seznamu L,
   ** nic se neděje.
   **/
-  if (L->Act == NULL || L->Act->ptr == NULL) {
+  if (L->Act == NULL || L->Act->ptr == NULL) {  //Check for invalid parameters
     return;
   }
 
@@ -187,12 +187,12 @@ void PostInsert(tList *L, int val) {
   if (newItemPtr == NULL) {
     Error();
   }
-
+  else{
   newItemPtr->data = val;
   newItemPtr->ptr = L->Act->ptr;
 
   L->Act->ptr = newItemPtr;
-
+  }
   // solved = FALSE; /* V případě řešení, smažte tento řádek! */
 }
 
