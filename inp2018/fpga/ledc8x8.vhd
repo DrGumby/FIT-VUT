@@ -23,8 +23,9 @@ architecture main of ledc8x8 is
 
     signal row_shreg : std_logic_vector(7 downto 0) ;
 
-    signal led_aux : std_logic_vector(9 downto 0) ;
-    signal led_out : std_logic_vector(7 downto 0) ;
+    --signal led_aux : std_logic_vector(9 downto 0) ;
+    signal led_out_k : std_logic_vector(7 downto 0) ;
+    signal led_out_v : std_logic_vector(7 downto 0) ;
 
 begin
 
@@ -49,7 +50,9 @@ begin
       if( RESET = '1' ) then
         row_shreg <= (0 => '1', others => '0');
       elsif( rising_edge(SMCLK) ) then
-        row_shreg <= row_shreg(6 downto 0) & row_shreg(7);
+        if( ctrl_ce = '1') then
+            row_shreg <= row_shreg(6 downto 0) & row_shreg(7);
+        end if;
       end if ;
     end process ; -- row_cnt
 
@@ -58,14 +61,44 @@ begin
 
 
     -- LED Decoder
-    led_aux <= switch & row_shreg;
+    --led_aux <= switch & row_shreg;
 
-    led_dec : process( led_aux )
-    begin
-        led_out <= (others => '0');
-    end process ; -- led_dec
+    with row_shreg select led_out_k <=
+        "10111011" when "00000001",
+        "10110111" when "00000010",
+        "10101111" when "00000100",
+        "10011111" when "00001000",
+        "10011111" when "00010000",
+        "10101111" when "00100000",
+        "10110111" when "01000000",
+        "10111011" when "10000000",
+        (others => '1') when others;
+
+    with row_shreg select led_out_v <=
+        "01111110" when "00000001",
+        "01111110" when "00000010",
+        "10111101" when "00000100",
+        "10111101" when "00001000",
+        "11011011" when "00010000",
+        "11011011" when "00100000",
+        "11100111" when "01000000",
+        "11100111" when "10000000",
+        (others => '1') when others;
 
     -- END LED Decoder
+
+
+
+    -- LED ON/OFF switch
+
+    with switch select LED <=
+        (others => '1') when "00",
+        led_out_k       when "01",
+        (others => '1') when "10",
+        led_out_v       when "11",
+        (others => '1') when others;
+
+    -- END LED ON/OFF switch
 
 
 
