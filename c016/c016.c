@@ -144,8 +144,12 @@ void htInsert(tHTable *ptrht, tKey key, tData data) {
 */
 
 tData *htRead(tHTable *ptrht, tKey key) {
-
-  solved = 0; /*v pripade reseni, smazte tento radek!*/
+  tHTItem *tempItem = htSearch(ptrht, key);
+  if(tempItem == NULL)
+    return NULL;
+  else
+    return &tempItem->data;
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /*
