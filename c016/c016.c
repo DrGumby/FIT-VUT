@@ -115,7 +115,23 @@ tHTItem *htSearch(tHTable *ptrht, tKey key) {
 
 void htInsert(tHTable *ptrht, tKey key, tData data) {
 
-  solved = 0; /*v pripade reseni, smazte tento radek!*/
+  tHTItem *tempItem = htSearch(ptrht, key);
+  if(tempItem != NULL){
+    tempItem->data = data;
+  }
+  else
+  {
+    int hashKey = hashCode(key);
+    tempItem = (tHTItem*) malloc(sizeof(tHTItem));
+    if(tempItem == NULL)
+      return;
+    tempItem->key = key;
+    tempItem->data = data;
+    tempItem->ptrnext = (*ptrht)[hashKey];
+    (*ptrht)[hashKey] = tempItem;
+  }
+
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /*
