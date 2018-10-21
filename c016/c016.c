@@ -66,10 +66,10 @@ int hashCode(tKey key) {
 */
 
 void htInit(tHTable *ptrht) {
-	//ptrht = (tHTable*) malloc(HTSIZE * sizeof(tHTItem));
-	for(int i = 0; i < HTSIZE; i++){
-		(*ptrht)[i] = NULL;
-	}
+  // ptrht = (tHTable*) malloc(HTSIZE * sizeof(tHTItem));
+  for (int i = 0; i < HTSIZE; i++) {
+    (*ptrht)[i] = NULL;
+  }
 
   // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
@@ -83,8 +83,22 @@ void htInit(tHTable *ptrht) {
 */
 
 tHTItem *htSearch(tHTable *ptrht, tKey key) {
+  int hashKey = hashCode(key);
+  tHTItem *tempItem = (*ptrht)[hashKey];
+  // if (tempItem == NULL)
+    // return NULL;
 
-  solved = 0; /*v pripade reseni, smazte tento radek!*/
+  while (tempItem != NULL) {
+    if (tempItem->key == key) {
+      return tempItem;
+    }
+    else{
+      tempItem = tempItem->ptrnext;
+    }
+  }
+  return tempItem;
+
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /*
