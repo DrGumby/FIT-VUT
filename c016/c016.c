@@ -170,12 +170,14 @@ void htDelete(tHTable *ptrht, tKey key) {
     deletedItem = tempItem;
     (*ptrht)[hashKey] = deletedItem->ptrnext;
     free(deletedItem);
+    deletedItem = NULL;
   }
   while(tempItem->ptrnext != NULL){                           // In case deleted item is after the first element of the list
     if(strcmp(tempItem->ptrnext->key, key) == 0){
       deletedItem = tempItem->ptrnext;
       tempItem->ptrnext = deletedItem->ptrnext;
       free(deletedItem);
+      deletedItem = NULL;
     }
     tempItem = tempItem->ptrnext;
   }
