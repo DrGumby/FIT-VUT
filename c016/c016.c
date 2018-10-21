@@ -52,12 +52,12 @@ int solved;
 ** volena s ohledem na maximální kvalitu výsledku). }
 */
 
-int hashCode ( tKey key ) {
-	int retval = 1;
-	int keylen = strlen(key);
-	for ( int i=0; i<keylen; i++ )
-		retval += key[i];
-	return ( retval % HTSIZE );
+int hashCode(tKey key) {
+  int retval = 1;
+  int keylen = strlen(key);
+  for (int i = 0; i < keylen; i++)
+    retval += key[i];
+  return (retval % HTSIZE);
 }
 
 /*
@@ -65,24 +65,29 @@ int hashCode ( tKey key ) {
 ** se volá pouze před prvním použitím tabulky.
 */
 
-void htInit ( tHTable* ptrht ) {
+void htInit(tHTable *ptrht) {
+	//ptrht = (tHTable*) malloc(HTSIZE * sizeof(tHTItem));
+	for(int i = 0; i < HTSIZE; i++){
+		(*ptrht)[i] = NULL;
+	}
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /* TRP s explicitně zřetězenými synonymy.
 ** Vyhledání prvku v TRP ptrht podle zadaného klíče key.  Pokud je
-** daný prvek nalezen, vrací se ukazatel na daný prvek. Pokud prvek nalezen není, 
+** daný prvek nalezen, vrací se ukazatel na daný prvek. Pokud prvek nalezen
+*není,
 ** vrací se hodnota NULL.
 **
 */
 
-tHTItem* htSearch ( tHTable* ptrht, tKey key ) {
+tHTItem *htSearch(tHTable *ptrht, tKey key) {
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
-/* 
+/*
 ** TRP s explicitně zřetězenými synonymy.
 ** Tato procedura vkládá do tabulky ptrht položku s klíčem key a s daty
 ** data.  Protože jde o vyhledávací tabulku, nemůže být prvek se stejným
@@ -94,9 +99,9 @@ tHTItem* htSearch ( tHTable* ptrht, tKey key ) {
 ** tedy proveďte.vložení prvku na začátek seznamu.
 **/
 
-void htInsert ( tHTable* ptrht, tKey key, tData data ) {
+void htInsert(tHTable *ptrht, tKey key, tData data) {
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /*
@@ -108,9 +113,9 @@ void htInsert ( tHTable* ptrht, tKey key, tData data ) {
 ** Využijte dříve vytvořenou funkci HTSearch.
 */
 
-tData* htRead ( tHTable* ptrht, tKey key ) {
+tData *htRead(tHTable *ptrht, tKey key) {
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /*
@@ -123,9 +128,9 @@ tData* htRead ( tHTable* ptrht, tKey key ) {
 ** V tomto případě NEVYUŽÍVEJTE dříve vytvořenou funkci HTSearch.
 */
 
-void htDelete ( tHTable* ptrht, tKey key ) {
+void htDelete(tHTable *ptrht, tKey key) {
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /* TRP s explicitně zřetězenými synonymy.
@@ -133,7 +138,7 @@ void htDelete ( tHTable* ptrht, tKey key ) {
 ** který tyto položky zabíraly, a uvede tabulku do počátečního stavu.
 */
 
-void htClearAll ( tHTable* ptrht ) {
+void htClearAll(tHTable *ptrht) {
 
- solved = 0; /*v pripade reseni, smazte tento radek!*/
+  solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
