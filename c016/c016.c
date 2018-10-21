@@ -89,7 +89,7 @@ tHTItem *htSearch(tHTable *ptrht, tKey key) {
     // return NULL;
 
   while (tempItem != NULL) {
-    if (tempItem->key == key) {
+    if (strcmp(tempItem->key, key) == 0) {
       return tempItem;
     }
     else{
@@ -122,7 +122,7 @@ void htInsert(tHTable *ptrht, tKey key, tData data) {
   else
   {
     int hashKey = hashCode(key);
-    tempItem = (tHTItem*) malloc(sizeof(tHTItem));
+    tempItem = (tHTItem*) malloc(sizeof(tHTItem));          //Need a new element in the list
     if(tempItem == NULL)
       return;
     tempItem->key = key;
@@ -163,8 +163,23 @@ tData *htRead(tHTable *ptrht, tKey key) {
 */
 
 void htDelete(tHTable *ptrht, tKey key) {
-
-  solved = 0; /*v pripade reseni, smazte tento radek!*/
+  int hashKey = hashCode(key);
+  tHTItem *tempItem = (*ptrht)[hashKey];
+  tHTItem *deletedItem;
+  if (tempItem != NULL && !strcmp(tempItem->key, key)) {      //In case deleted item is found at the beginning of the list
+    deletedItem = tempItem;
+    (*ptrht)[hashKey] = deletedItem->ptrnext;
+    free(deletedItem);
+  }
+  while(tempItem->ptrnext != NULL){                           // In case deleted item is after the first element of the list
+    if(strcmp(tempItem->ptrnext->key, key) == 0){
+      deletedItem = tempItem->ptrnext;
+      tempItem->ptrnext = deletedItem->ptrnext;
+      free(deletedItem);
+    }
+    tempItem = tempItem->ptrnext;
+  }
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
 
 /* TRP s explicitně zřetězenými synonymy.
@@ -173,6 +188,13 @@ void htDelete(tHTable *ptrht, tKey key) {
 */
 
 void htClearAll(tHTable *ptrht) {
-
-  solved = 0; /*v pripade reseni, smazte tento radek!*/
+  tHTItem *deletedItem;
+  for(int i = 0; i < HTSIZE; i++){
+    while((*ptrht)[i] != NULL){             //Cycle through all the list items
+      deletedItem = (*ptrht)[i];
+      (*ptrht)[i] = deletedItem->ptrnext;
+      free(deletedItem);
+    }
+  }
+  // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
