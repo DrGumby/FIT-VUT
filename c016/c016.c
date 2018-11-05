@@ -83,16 +83,18 @@ void htInit(tHTable *ptrht) {
 */
 
 tHTItem *htSearch(tHTable *ptrht, tKey key) {
+  if (*ptrht == NULL) {
+    return NULL;
+  }
   int hashKey = hashCode(key);
   tHTItem *tempItem = (*ptrht)[hashKey];
   // if (tempItem == NULL)
-    // return NULL;
+  // return NULL;
 
   while (tempItem != NULL) {
     if (strcmp(tempItem->key, key) == 0) {
       return tempItem;
-    }
-    else{
+    } else {
       tempItem = tempItem->ptrnext;
     }
   }
@@ -116,14 +118,13 @@ tHTItem *htSearch(tHTable *ptrht, tKey key) {
 void htInsert(tHTable *ptrht, tKey key, tData data) {
 
   tHTItem *tempItem = htSearch(ptrht, key);
-  if(tempItem != NULL){
+  if (tempItem != NULL) {
     tempItem->data = data;
-  }
-  else
-  {
+  } else {
     int hashKey = hashCode(key);
-    tempItem = (tHTItem*) malloc(sizeof(tHTItem));          //Need a new element in the list
-    if(tempItem == NULL)
+    tempItem =
+        (tHTItem *)malloc(sizeof(tHTItem)); // Need a new element in the list
+    if (tempItem == NULL)
       return;
     tempItem->key = key;
     tempItem->data = data;
@@ -145,7 +146,7 @@ void htInsert(tHTable *ptrht, tKey key, tData data) {
 
 tData *htRead(tHTable *ptrht, tKey key) {
   tHTItem *tempItem = htSearch(ptrht, key);
-  if(tempItem == NULL)
+  if (tempItem == NULL)
     return NULL;
   else
     return &tempItem->data;
@@ -163,23 +164,30 @@ tData *htRead(tHTable *ptrht, tKey key) {
 */
 
 void htDelete(tHTable *ptrht, tKey key) {
+  if (*ptrht == NULL) {
+    return;
+  }
   int hashKey = hashCode(key);
   tHTItem *tempItem = (*ptrht)[hashKey];
   tHTItem *deletedItem;
-  if (tempItem != NULL && !strcmp(tempItem->key, key)) {      //In case deleted item is found at the beginning of the list
-    deletedItem = tempItem;
-    (*ptrht)[hashKey] = deletedItem->ptrnext;
-    free(deletedItem);
-    deletedItem = NULL;
-  }
-  while(tempItem->ptrnext != NULL){                           // In case deleted item is after the first element of the list
-    if(strcmp(tempItem->ptrnext->key, key) == 0){
-      deletedItem = tempItem->ptrnext;
-      tempItem->ptrnext = deletedItem->ptrnext;
+  if (tempItem != NULL) {
+    if (!strcmp(tempItem->key, key)) { // In case deleted item is found at the beginning of the list
+      deletedItem = tempItem;
+      (*ptrht)[hashKey] = deletedItem->ptrnext;
       free(deletedItem);
       deletedItem = NULL;
+    } else {
+       while (tempItem->ptrnext != NULL) { // In case deleted item is after the first element of the list
+        if (!strcmp(tempItem->ptrnext->key, key)) {
+          deletedItem = tempItem->ptrnext;
+          tempItem->ptrnext = deletedItem->ptrnext;
+          free(deletedItem);
+          deletedItem = NULL;
+        }
+        else
+          tempItem = tempItem->ptrnext;
+      }
     }
-    tempItem = tempItem->ptrnext;
   }
   // solved = 0; /*v pripade reseni, smazte tento radek!*/
 }
@@ -191,8 +199,8 @@ void htDelete(tHTable *ptrht, tKey key) {
 
 void htClearAll(tHTable *ptrht) {
   tHTItem *deletedItem;
-  for(int i = 0; i < HTSIZE; i++){
-    while((*ptrht)[i] != NULL){             //Cycle through all the list items
+  for (int i = 0; i < HTSIZE; i++) {
+    while ((*ptrht)[i] != NULL) { // Cycle through all the list items
       deletedItem = (*ptrht)[i];
       (*ptrht)[i] = deletedItem->ptrnext;
       free(deletedItem);
