@@ -108,13 +108,15 @@ void BSTInsert(tBSTNodePtr *RootPtr, char K, int Content) {
   ** příklad, na kterém si chceme ukázat eleganci rekurzivního zápisu.
   **/
 
-	tBSTNodePtr newItem = (tBSTNodePtr) malloc(sizeof(struct tBSTNode));
-	newItem->BSTNodeCont = Content;
-	newItem->Key = K;
-	newItem->LPtr = NULL;
-	newItem->RPtr = NULL;
+	tBSTNodePtr newItem;
+
 
 	if(*RootPtr == NULL){
+		newItem = (tBSTNodePtr) malloc(sizeof(struct tBSTNode));
+		newItem->BSTNodeCont = Content;
+		newItem->Key = K;
+		newItem->LPtr = NULL;
+		newItem->RPtr = NULL;
 		*RootPtr = newItem;
 		return;
 	}
