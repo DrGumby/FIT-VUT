@@ -130,7 +130,10 @@ Pss1(2:end-1) = 2*Pss1(2:end-1);
 
 f = Fs*(0:(length(S)/2))/length(S);
 
-figure;plot(f, P1, f, Pss1);ylabel("X_s[n], X_{ss}[n]"); xlabel("f [Hz]"); title("Exercise 8");
+figure;plot(f, P1);ylabel("X_s[n]"); xlabel("f [Hz]"); title("Exercise 8 pt. 1");
+print -depsc ex8_1.eps
+figure;plot(f, Pss1);ylabel("X_{ss}[n]"); xlabel("f [Hz]"); title("Exercise 8 pt. 2");
+print -depsc ex8_2.eps
 
 
 %Exercise 9
@@ -148,5 +151,28 @@ plot(g, Fg);
 
 deltag = g(2) - g(1);
 pg = hist(s, g) / length(s) / deltag;
-plot(g, pg);
-area = int(pg, -1,1);
+figure;plot(g, pg);ylabel("Probability density function"); xlabel("x"); title("Exercise 9");
+print -depsc ex9.eps;
+area = trapz(g, pg);
+fprintf(stdout, "Area is %d\n", area);
+
+%Exercise 10
+
+Rk = xcorr(s, 'biased');
+k = idivide(length(Rk), 2) - 50 : idivide(length(Rk), 2) + 50;
+figure; plot(-50:50, Rk(k)); ylabel("R[k]"); xlabel("k"); title("Exercise 10");
+print -depsc ex10.eps;
+
+%Exercise 11
+
+R0 = Rk(idivide(length(Rk), 2));
+R1 = Rk(idivide(length(Rk), 2) +1);
+R16 = Rk(idivide(length(Rk), 2) +16);
+fprintf(stdout, "R[0] is %d\n", R0);
+fprintf(stdout, "R[1] is %d\n", R1);
+fprintf(stdout, "R[16] is %d\n", R16);
+
+%Exercise 12
+
+L = 1;
+N = length(s);
