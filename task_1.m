@@ -50,7 +50,7 @@ B = [0.0192   -0.0185   -0.0185    0.0192];
 A = [1.0000   -2.8870    2.7997   -0.9113];
 
 
-figure;zplane (B,A); title("Exercise 3");
+figure;zplane (B,A);  xlabel("Re"); ylabel("Im");title("Exercise 3");
 print -depsc ex3.eps;
 p = roots(A); 
 if (isempty(p) | abs(p) < 1) 
@@ -174,5 +174,9 @@ fprintf(stdout, "R[16] is %d\n", R16);
 
 %Exercise 12
 
-L = 1;
-N = length(s);
+
+x_axis = linspace(min(s), max(s), 100);
+[h,p,r] = hist2opt(s(1:length(s)-1), s(2:length(s)), x_axis);
+imagesc(-x_axis, x_axis, p);
+colorbar;
+print -depsc ex12.eps;
