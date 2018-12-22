@@ -165,9 +165,9 @@ print -depsc ex10.eps;
 
 %Exercise 11
 
-R0 = Rk(idivide(length(Rk), 2));
-R1 = Rk(idivide(length(Rk), 2) +1);
-R16 = Rk(idivide(length(Rk), 2) +16);
+R0 = Rk(idivide(length(Rk), 2)-1);
+R1 = Rk(idivide(length(Rk), 2));
+R16 = Rk(idivide(length(Rk), 2) +15);
 fprintf(stdout, "R[0] is %d\n", R0);
 fprintf(stdout, "R[1] is %d\n", R1);
 fprintf(stdout, "R[16] is %d\n", R16);
@@ -177,6 +177,14 @@ fprintf(stdout, "R[16] is %d\n", R16);
 
 x_axis = linspace(min(s), max(s), 100);
 [h,p,r] = hist2opt(s(1:length(s)-1), s(2:length(s)), x_axis);
-imagesc(-x_axis, x_axis, p);
+figure;imagesc(-x_axis, x_axis, p);
+axis xy
 colorbar;
 print -depsc ex12.eps;
+
+%Exercise 13
+fprintf(stdout, "See output of hist2opt\n");
+
+%Exercise 14
+fprintf(stdout, "R[1] is %d, the same as previously\n", r);
+
