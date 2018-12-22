@@ -57,7 +57,7 @@ if (isempty(p) | abs(p) < 1)
   disp('Filter is stable')
 else
   disp('Filter is not stable')
-end
+endif
 
 %Exercise 4
 H = freqz(B,A,256); f=(0:255) / 256 * Fs / 2; 
