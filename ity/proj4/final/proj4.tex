@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[IL2]{fontenc}
+\usepackage[left=2cm, text={17cm, 24cm}, top=3cm]{geometry}
+\usepackage[czech]{babel}
+\usepackage{hyperref}
+\usepackage{times}
+\bibliographystyle{czechiso}
+
+\title{proj4}
+\author{kvojanec }
+\date{April 2018}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\Huge
+\textsc{\Huge{Vysoké učení technické v Brně} \\\huge Fakulta informačních technologií}\\
+\vspace{\stretch{0.382}}
+\LARGE Typografie a publikování\,--\,4. projekt\\
+\Huge Bibliografické citace
+\vfill
+\end{center}
+{\LARGE 12. dubna 2018 \hfill
+Kamil Vojanec}
+
+\end{titlepage}
+
+\section{Sazba písma}
+\subsection{Historie latinky} 
+Latinka je písmo, které se vyvinulo v 7. století před naším letopočtem z abecedy původních obyvatel severní Itálie -- Etrusků. Do moderní doby se zachovalo celkem 26 původních znaků abecedy, které jsou doplněny řadou znaků specifických pro jednotlivé jazyky používající latinku.\cite{agersimon2018} V mnoha dalších světových jazycích dochází k tzv. \emph{latinizaci}, čili přepisování slov z původní abecedy do latinky.\cite{arutiunov2007} 
+
+Vývojem písma se zabývá \emph{paleografie}, která zkoumá kulturní vlivy jednotlivých národů na podobu písma a jeho změny v průběhu let. Stáří písma se často rozlišuje pomocí písmomalířských ozdob, díky nimž se dá určit často i místo původ.\cite{joyce1957}
+\subsection{Typy a řezy písma} 
+Volba typu a řezu písma může ovlivnit celkové vnímání textu. Bylo dokázáno, že velká písmena umožní čtenáři přečíst je rychleji.\cite{pusnik2006} Pro písemný projev je navíc potřeba použít celou řadu znaků. Mezi ně patří:\cite{cerna2006}
+\begin{itemize}
+    \item Malá písmena (minusky)
+    \item Velká písmena (verzálky)
+    \item Číslice
+    \item Diakritická znaménka -- akcenty (součást písmen)
+    \item Interpunkční znaménka
+    \item Závorky
+    \item Uvozovky
+    \item Matematická znaménka
+    \item Ostatní znaky
+\end{itemize}
+Pro měření velikosti písma se v tiskařské technologii využívá speciálních jednotek. V Evropě se tradičně používá \emph{Didotův bod}, jehož velikost je 0,3759\,mm, zatímco v Anglii a Americe se využívá měrný systém \emph{pica}, kde 1\,bod = 12\,pica.\cite{janak2001} 
+Krom velikosti písma je rovněž důležitý typ písma. Existuje celá řada \emph{rodin písma}, které mohou být často nepřehledné nebo nevhodné. Rodinou písma rozumíme skupinu písem, kterou sdružuje název a druh písma a kromě základního písma zahrnuje i různé řezy.\cite{sirucek2006} Vhodné písmo může být nesnadné vybrat, v technické dokumentaci je nutná co nejjednodušší a nejčitelnější varianta. Mnoho studentů se může domnívat, že volbou písma vyjadřují svoji vlastní povahu, toto však není správně.\cite{mackiewicz2003}. 
+
+Pro sazbu textu můžeme použít množství editorů. Jedním druhem jsou tzv. \emph{WYSIWYG (what you see is what you get)} editorů, jako jsou například komerční Microsoft Word nebo volně dostupný editor z balíku LibreOffice. Druhou variantou sázení textu jsou sázecí systémy jako například \TeX nebo \LaTeX. \cite{lukes2013} 
+
+\LaTeX je sázecí systém pod licencí open-source vyvinutý Leslie Lamportem jako nadstavba systému \TeX. Je obzvláště vhodný pro vědecké a technické dokumenty zejména díky svým schopnostem sázet matematické výrazy. Výhodou \LaTeX u je rovněž snadné sázení odkazů a citací.\cite{kottwitz2011}
+\pagebreak
+\bibliography{proj4}
+
+\end{document}

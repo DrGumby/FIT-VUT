@@ -1,0 +1,598 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[european]{circuitikz}
+\usepackage{amsmath, amssymb}
+%Gummi|065|=)
+\begin{document}
+%----------------------------TITLEPAGE-------------------------------------------------------------
+	\begin{titlepage}
+	\center
+	\textsc{\LARGE Vysoké učení technické v Brně}\\[0.5cm]
+	\textsc{\Large Fakulta informačních technologií}\\[2.5cm]
+	{\huge\bfseries Elektrotechnika pro informační technologie\\ 2017/18 }\\[0.4cm]
+	\textsc{\LARGE Semestrální projekt}\\[2.5cm]
+	\textmd{\large Kamil Vojanec\\
+			xvojan00}\\[4cm]
+	\textit{11. října 2017}
+
+
+
+	\newpage
+	\end{titlepage}
+%--------------------------END TITLEPAGE----------------------------------------------------------
+
+
+
+
+\section{Úloha 1.}
+\subsection{Zadání (varianta B}
+
+Stanovte napětí $U_{R1}$ a proud $I_{R1}$. Použijte metodu postupného zjednodušování obvodu.
+Hodnoty jsou varianta B.
+\\
+
+\begin{circuitikz} \draw
+
+
+(0,0)	to[dcvsource=$U_1$] (0,-2)
+		to[dcvsource=$U_1$] (0,-4) --(2, -4)
+		to[open, *-]
+		(2, -4) --(2, -3)
+		to[R=$R_7$,](4, -3)
+		(2, -4) -- (2,-5)
+		to[R=$R_8$](4, -5)
+		to[short,-*](4,-4)	
+		(4,-3) -- (4,-4)
+		(4, -4) -- (10, -4)
+		to[short](10, -2)
+		to[R=$R_6$, *-*](7, -2)
+		(10, -2) -- (10, 0)
+		to[R=$R_5$, -*](7, 0)
+		to[R=$R_4$] (7, -2)
+		to[R=$R_3$] (4, -2)
+		(4, -2) -- (4, 0)
+		to[R=$R_2$, *-](7, 0)
+		(7, 0) -- (7, 2)
+		to[R=$R_1$, v_<=$U_1$] (4, 2)
+		to[short, i_<=$I_1$] (4,0)
+		(4,0) -- (0, 0)
+;
+\end{circuitikz}
+
+\subsection{Řešení}
+Začneme zjednodušením dvou zdrojů napětí. Jsou zapojeny v sérii, proto platí: 
+\begin{equation*}
+U = U_1 + U_2
+\end{equation*}
+Dále vidíme, že $R_7$ a $R_8$ jsou vzájemně paralelně zapojeny. Podobně jsou zapojeny rovněž $R_1$ a $R_2$. Můžeme je tedy zjednodušit následovně:
+\begin{equation*}
+\frac{1}{R_{12}} = \frac{1}{R_1} + \frac{1}{R_2} \implies R_{12} = \frac{R_1R_2}{R_1+R_2} 
+\end{equation*}
+
+\begin{equation*}
+\frac{1}{R_{78}} = \frac{1}{R_7} + \frac{1}{R_8} \implies R_{78} = \frac{R_7R_8}{R_7+R_8}
+\end{equation*}
+Dostáváme se tedy k následujícímu obvodu:
+\\
+\begin{circuitikz} \draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -2)
+		to[R=$R_6$, *-*](7, -2)
+		(10, -2) -- (10, 0)
+		to[R=$R_5$, -*](7, 0)
+		to[R=$R_4$] (7, -2)
+		to[R=$R_3$] (4, -2)
+		(4, -2) -- (4, 0)
+		to[R=$R_{12}$, *-](7, 0)
+		(4,0) -- (0, 0)
+;
+\end{circuitikz}
+\\
+\\
+Je zřejmé, že rezistory $R_4$, $R_5$ a $R_6$ se rovněž dají znázornit takto:
+
+
+\begin{circuitikz} \draw
+(0,0)	 node[label={[font=\small]above:B}] {}
+		to[R=$R_5$, *-*] (2,-1)
+		 node[label={[font=\small]above:A}] {}
+		to[R=$R_6$, *-*] (0, -2)
+		 node[label={[font=\small]below:C}] {}
+		to[R=$R_6$] (0, 0) 
+;
+\end{circuitikz}
+\\
+Z čehož vyplývá možnost zjednodušení transpozicí trojúhelník-hvězda:
+\\
+\begin{circuitikz} \draw
+(0,0)	node[label={[font=\small]above:B}] {}
+		to[R=$R_B$, *-*] (2, -1)
+		to[R=$R_C$, *-*] (0, -2)
+		node[label={[font=\small]above:C}] {}
+		to[open] (2, -1)
+		to[R=$R_A$, *-*] (4,-1)
+		node[label={[font=\small]above:A}] {}
+;
+\end{circuitikz}
+\\
+Potřebné odpory $R_A$, $R_B$ a $R_C$ můžeme získat z odvozených vzorců:
+\begin{equation*}
+	R_A = \frac{R_5R_6}{R_4+R_5+R_6}
+\end{equation*}
+
+\begin{equation*}
+	R_B = \frac{R_4R_5}{R_4+R_5+R_6}
+\end{equation*}
+
+\begin{equation*}
+	R_C = \frac{R_4R_6}{R_4+R_5+R_6}
+\end{equation*}
+\\[1cm]
+Po zjednodušení vypadá obvod následovně:
+\\[0.5cm]
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -1)
+		to[R=$R_A$, -*] (8, -1)
+		(8, -1) -- (7,0)
+		to[R=$R_B$] (5, 0)
+		to[R=$R_{12}$,-*] (2, 0)
+		(2, 0) -- (2, -2)
+		to[R=$R_3$] (5, -2)
+		to[R=$R_C$] (7, -2)
+		(7, -2) -- (8, -1)
+		(2,0) -- (0, 0)
+;
+\end{circuitikz}
+\\
+Odpory $R_{12}$ a $R_B$, podobně jako odpory $R_3$ a $R_C$ jsou vzájemně zapojeny sériově, lze je tedy zjednodušit:
+\begin{equation*}
+	R_{12B} = R_{12} + R_B
+\end{equation*}
+
+\begin{equation*}
+	R_{3C} = R_3 + R_C
+\end{equation*}
+\\
+Vzájemně paralelně nám tedy zůstaly odpory $R_{12B}$ a $R_{3C}$. Obvod teď vypadá takto:
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -1)
+		to[R=$R_A$, -*] (8, -1)
+		(8, -1) -- (8, -2)
+		to[R=$R_{3C}$] (4, -2)		
+		(4, -2) -- (4, 0)
+		to[R=$R_{12B}$, *-] (8,0)
+		(8,0) -- (8, -1)
+		(4,0) -- (0, 0)
+;
+\end{circuitikz}
+\\
+Zjednodušíme odpory $R_{12B}$ a $R_{3C}$:
+\\
+\begin{equation*}
+	R_{123BC} = \frac{R_{12B}R_{3C}}{R_{12B}+R_{3C}}
+\end{equation*}
+V obvodu nám zůstaly sériově zapojené odpory $R_{123BC}$, $R_A$ a $R_{78}$:
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		to[R=$R_{78}$](4, -4) -- (10, -4)
+		to[R=$R_A$] (10,0) -- (8,0)
+		to[R=$R_{123BC}$] (0, 0)
+		
+		
+		
+;
+\end{circuitikz}
+\\
+Tyto můžeme nahradit ekvivalentním odporem $R_{ekv}$.
+\\
+\begin{equation*}
+	R_{ekv} = R_{123BC} + R_A + R_{78}
+\end{equation*}
+\\
+Nyní můžeme na základě Ohmova zákona vypočítat celkový proud procházející obvodem.
+\begin{equation*}
+	I = \frac{U}{R_{ekv}}
+\end{equation*}
+\\
+%-------------------------------------------REKV VYPOČÍTÁNO-----------------------------------------------------
+Požadované hodnoty napětí $U_{R_1}$ a proudu $I_{R_1}$ teď zjistíme postupným návratem k původnímu obvodu. Na základě sériového zapojení odporů $R_{78}$ a $R_{123BC}$ můžeme říci, že:
+\begin{equation*}
+	I_{R_{123ABC}} = I_{R_{78}} = I
+\end{equation*}
+\\
+Z čehož vyplývá, že napětí na odporech zjistíme pomocí Ohmova zákona:
+\begin{equation*}
+	U_{R_{123ABC}} = R_{123ABC} \times I
+\end{equation*}
+
+\begin{equation*}
+	U_{R_{78}} = R_{78} \times I
+\end{equation*}
+Můžeme provést kontrolu pomocí II. Kirchhoffova zákona, který říká, že celkové napětí ve smyčce musí být rovno nule:
+\begin{equation*}
+	U_{R_{123ABC}}+U_{R_{78}} - U = 0
+\end{equation*}
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		to[R=$R_{78}$, v_<=$U_{R_{78}}$](4, -4) -- (10, -4)
+		to[short, i_<=$I$] (10, 0)
+		to[R=$R_{123ABC}$, v_<=$U_{R_{123ABC}}$] (0, 0)
+		
+		
+		
+;
+\end{circuitikz}
+\\
+Nyní rozložíme $R_{123ABC}$ na $R_A$ a $R_{123BC}$. Odpory jsou zapojeny sériově, použijeme Ohmův zákon takto:
+\\
+\begin{equation*}
+	U_{R_{123BC}} = I \times R_{123BC}
+\end{equation*}
+
+\begin{equation*}
+	U_{R_{A}} = I \times R_A
+\end{equation*}
+\\
+Odpory $R_{3C}$ a $R_{12B}$ jsou nyní vzájemně zapojeny paralelně:
+\\
+\begin{circuitikz}
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -1)
+		to[R=$R_A$, -*] (8, -1)
+		(8, -1) -- (8, -2)
+		to[R=$R_{3C}$, i_<=$I_{R_{3C}}$] (4, -2)		
+		(4, -2) -- (4, 0)
+		to[R=$R_{12B}$, *-, i_>=$I_{R_{12B}}$] (8,0)
+		(8,0) -- (8, -1)
+		(4,0) -- (0, 0)
+;
+\end{circuitikz}
+\\ 
+Na základě I. Kirchhoffova zákona jsme schopni určit:
+\\
+\begin{equation*}
+	U_{R_{3C}} = U_{R_{12B}} = U_{R_{123BC}}
+\end{equation*}
+
+\newpage
+\noindent Ohmův zákon tedy použijeme takto:
+\begin{equation*}
+	I_{R_{12B}} = \frac{U_{R_{123BC}}}{R_{12B}}
+\end{equation*}
+
+\begin{equation*}
+	I_{R_{3C}} = \frac{U_{R_{123BC}}}{R_{3C}}
+\end{equation*}
+\\
+Odpory $R_{12}$ a $R_B$ jsou zapojeny v sérii:
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -1)
+		to[R=$R_A$, -*] (8, -1)
+		(8, -1) -- (7,0)
+		to[R=$R_B$, v_<=$U_{R_{B}}$] (5, 0)
+		to[R=$R_{12}$,-*, v_<=$U_{R_{12}}$] (2, 0)
+		(2, 0) -- (2, -2)
+		to[R=$R_3$] (5, -2)
+		to[R=$R_C$] (7, -2)
+		(7, -2) -- (8, -1)
+		(2,0) -- (0, 0)
+;
+\end{circuitikz}
+\\ 
+\begin{equation*}
+	I_{R_{12}} = I_{R_{B}} = I_{R_{12B}}
+\end{equation*}
+\\
+Můžeme tedy opět použít Ohmův zákon:
+\begin{equation*}
+	U_{R_{12}} = I_{R_{12B}} \times R_{12}
+\end{equation*}
+\\
+Nyní nám stačí jen rozdělit odpor $R_{12}$ na odpory $R_1$ a $R_2$. Tyto jsou vzájemně zapojeny paralelně, proto platí:
+\begin{equation*}
+	U_{R_{1}} = U_{R_{2}} = U_{R_{12}}
+\end{equation*}
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource=$U$] (0,-4)
+		
+		to[R=$R_{78}$,](4, -4)
+		(4,-4) -- (10,-4)
+		(10, -4) -- (10, -1)
+		to[R=$R_A$, -*] (8, -1)
+		(8, -1) -- (7,0)
+		to[R=$R_B$] (5, 0)
+		to[R=$R_{2}$,*-*] (2, 0)
+		(5, 0) -- (5, 2)
+		to[R=$R_1$, v_<=$U_{R_{1}}$] (2, 2)
+		to[short, , i_<=$I_{R_{1}}$] (2, 0)
+		(2, 0) -- (2, -2)
+		to[R=$R_3$] (5, -2)
+		to[R=$R_C$] (7, -2)
+		(7, -2) -- (8, -1)
+		(2,0) -- (0, 0)
+;
+\end{circuitikz}
+
+Toto nám již stačí k výpočtu hledaného $U_{R_{1}}$ a $I_{R_{1}}$. Použijem Ohmův zákon:
+\begin{equation*}
+	U_{R_{1}} = U_{R_{2}}
+\end{equation*}
+
+\begin{equation*}
+	I_{R_{1}} = \frac{U_{R_{1}}}{R_1}
+\end{equation*}
+
+Tabulka s vypočtenými hodnotami se nachází v závěru tohoto protokolu.
+%----------------------------------------------------------------------------Úloha 2------------------------------
+%-----------------------------------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------------------------------
+\newpage
+\section{Úloha 2}
+\subsection{Zadání (varianta G)}
+Stanovte napětí $U_{R_{3}}$ a proud $I_{R_{3}}$. Použijte metodu Théveninovy věty.
+\newline Hodnoty jsou varianta G.
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, v<=$U_1$] (0,4)
+		to[R=$R_1$, -*] (4, 4)		
+		(4,4) -- (6,4)
+		to[R=$R_4$, *-] (10,4)
+		to[dcvsource, v=$U_2$] (10, 0)
+		to[short, -*] (6,0)
+		to[short, -*] (4,0)
+		(4,0) -- (0,0)
+		to[open] (4,0)
+		to[R=$R_2$] (4,4)
+		to[open] (6,4)
+		to[R=$R_3$, v>=$U_{R_{3}}$, i=$I_{R_{3}}$ ] (6,0)
+		
+;
+\end{circuitikz}
+\\
+\subsection{Řešení}
+Začneme zavedením ekvivalentního obvodu pro řešení $R_3$.
+
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, v<=$U_i$] (0,4)
+		to[R=$R_i$] (4, 4)		
+		to[R=$R_3$] (4, 0) -- (0,0)
+;
+\end{circuitikz}
+\newpage
+\noindent Překreslíme původní obvod s odpojeným rezistorem $R_3$.
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, v<=$U_1$] (0,4)
+		to[R=$R_1$, -*] (4, 4)		
+		(4,4) -- (6,4)
+		to[R=$R_4$, *-] (10,4)
+		to[dcvsource, v=$U_2$] (10, 0)
+		to[short, -*] (6,0)
+		to[short, -*] (4,0)
+		(4,0) -- (0,0)
+		to[open] (4,0)
+		to[R=$R_2$] (4,4)
+		to[open] (6,4)
+		to[short, -*] (6,3)
+		to[open] (6,1)
+		to[short, *-] (6,0)
+;
+\end{circuitikz}
+\\
+Nahradíme napěťové zdroje $U_1$ a $U_2$ zkratem:
+\\
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[R=$R_1$] (0, 4)		
+		(0,4) -- (10,4)
+		to[R=$R_4$] (10,0)
+		to[short] (10, 0)
+		to[short, -*] (6,0)
+		to[short, -*] (4,0)
+		(4,0) -- (0,0)
+		to[open] (4,0)
+		to[R=$R_2$, -*] (4,4)
+		to[open] (6,4)
+		to[short, *-*] (6,5)
+		to[open] (6,0)
+		to[short, -*] (6,-1)
+;
+\end{circuitikz}
+\\
+Vypočítáme celkový odpor $R_i$. Jedná se o paralelní zapojení rezistorů, čili platí vztah:
+\\
+\begin{equation*}
+	\frac{1}{R_i} = \frac{1}{R_{12}} + \frac{1}{R_4} \implies R_i = \frac{R_{12}R_4}{R_{12}+R_4}
+\end{equation*}
+Kde $R_{12}$ vypočítáme:
+\begin{equation*}
+	\frac{1}{R_{12}} = \frac{1}{R_1} + \frac{1}{R_2} \implies R_{12} = \frac{R_1R_2}{R_1+R_2}
+\end{equation*}
+\\
+\newpage 
+\noindent Nyní se vrátíme zpět k obvodu s napěťovými zdroji
+
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, i>=$I_y$, v<=$U_1$] (0,4)
+		to[R=$R_1$, i>=$I_y$,-*] (4, 4)
+		(2,2)node[scale=4]{$\circlearrowright$}	
+		(2,2)node{$I_y$}
+		(7,2)node[scale=4]{$\circlearrowleft$}
+		(7,2)node{$I_x$}	
+		(4,4) -- (6,4)
+		to[R=$R_4$, i<=$I_x$, *-] (10,4)
+		to[dcvsource, v=$U_2$, i<=$I_x$] (10, 0)
+		to[short, i<=$I_x$, -*] (6,0)
+		to[short, i<=$i_x$, -*] (4,0)
+		(4,0) -- (0,0)
+		to[open] (4,0)
+		to[R=$R_2$, i<=$I_x + I_y$] (4,4)
+		to[open] (6,4)
+		to[short, -*] (6,3)
+		to[open] (6,1)
+		to[short, *-] (6,0)
+;
+\end{circuitikz}
+\\
+Musíme vypočítat proud $I_x$ procházející pravou částí obvodu. Pro tento výpočet použijeme metodu smyčkových proudů. Pro smyčku $I_x$ platí:
+\begin{equation*}
+	U_{R_{4}} + U_{R_{2}} - U_2 = 0 \implies I_xR_4 + R_2(I_x + I_y) - U_2 = 0
+\end{equation*}
+\\
+Na základě I. Kirchhoffova zákona můžeme tvrdit, že vchází-li proudy $I_x$ a $I_y$ do uzlu ze dvou 		větví, pak třetí větví musí vycházet proud $I_x + I_y$.
+\\
+\\
+Podobně pak pro smyčku $I_y$ platí:
+\begin{equation*}
+	U_{R_{1}} + U_{R_{2}} - U_1 = 0 \implies I_yR_1 + R_2(I_x + I_y) - U_1 = 0
+\end{equation*}
+Dostáváme tedy soustavu dvou rovnic o dvou neznámých. Můžeme z první rovnice vyjádřit $I_x$.
+\begin{equation*}
+	I_xR_4 + R_2(I_x + I_y) - U_2 = 0 \implies I_xR_4 + I_xR_2 = U_2 - I_yR_2 \implies I_x = \frac{U_2 - R_2I_y}{R_4 + R_2}
+\end{equation*}
+Takto vyjádřené $I_x$ nyní vložíme do druhé rovnice:
+\begin{equation*}
+	I_yR_1 + I_yR_2 + R_2 \times \frac{U_2 - R_2I_y}{R_4 + R_2} - U_1 = 0
+\end{equation*}
+Z této rovnice vyjádříme $I_y$ a vypočteme jej.
+
+\begin{align*}
+	I_yR_1 + I_yR_2 + R_2 \times \frac{U_2 - R_2I_y}{R_4 + R_2} - U_1 &= 0 \implies \\
+	\implies I_yR_1(R_4+R_2) + I_yR_2(R_4 + R_2) + R_2(U_2 - R_2I_y) - U_1(R_4 + R_2) &= 0 \implies \\
+	\implies I_yR_1R_4 + I_yR_1R_2 + I_yR_2R_4 + I_yR_2^2 + R_2U_2 - I_yR_2^2 - U_1R_4 - U_1R_2 &= 0 \implies \\
+	\implies I_y = \frac{U_1R_4 + U_1R_2 - U_2R_2}{R_1R_4 + R_1R_2 + R_2R_4}
+\end{align*}
+\\
+Po dosazení vypočtené hodnoty do vztahu pro výpočet $I_x$ (výše) získáme hledanou hodnotu proudu v pravé smyčce obvodu.
+\\
+\\
+Nyní je potřeba vypočítat napětí $U_i$ mezi volnými konci obvodu (v nákresu body A, B).
+
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, i>=$I_y$, v<=$U_1$] (0,4)
+		to[R=$R_1$, i>=$I_y$,-*] (4, 4)
+		(4,4) -- (6,4)
+		to[R=$R_4$, i<=$I_x$, *-] (10,4)
+		to[dcvsource, v=$U_2$, i<=$I_x$] (10, 0)
+		to[short, i<=$I_x$, -*] (6,0)
+		to[short, i<=$i_x$, -*] (4,0)
+		(4,0) -- (0,0)
+		to[open] (4,0)
+		to[R=$R_2$, i<=$I_x + I_y$] (4,4)
+		to[open] (6,4)
+		to[short, -*] (6,3)
+		node[label={[font=\small]left:A}] {}
+		to[open, v>=$U_i$] (6,1)
+		node[label={[font=\small]left:B}] {}
+		to[short, *-] (6,0)
+		(8,2)node[scale=4]{$\circlearrowleft$}
+		(8,2)node{$I_x$}
+		
+;
+\end{circuitikz}
+\\
+Postupujeme podle II. Kirchhoffova zákona:
+\\
+\begin{equation*}
+	U_{R_{4}} + U_i - U_2 = 0 \implies -I_xR_4 + U_2 = U_i
+\end{equation*}
+\\
+Následuje návrat ke zjednodušenému obvodu s odporem $R_3$ a $R_i$ v sérii:
+
+\begin{circuitikz}
+
+\draw
+
+
+(0,0)	to[dcvsource, v<=$U_i$] (0,4)
+		to[R=$R_i$] (4, 4)		
+		to[R=$R_3$] (4, 0) -- (0,0)
+;
+\end{circuitikz}
+\\
+V tomto obvodu velmi snadno určíme proud dle Ohmova zákona:
+\begin{equation*}
+	I = \frac{U_i}{R_i + R_3}
+\end{equation*}
+\newpage
+\noindent Nyní už zbývá jen dopočítat pomocí Ohmova zákona i napětí na rezistoru $R_3$.
+\begin{equation*}
+	U_{R_{3}} = R_3 \times I
+\end{equation*}
+Vypočtené hodnoty jsou uvedeny v tabuce v závěru tohoto dokumentu.
+\end{document}

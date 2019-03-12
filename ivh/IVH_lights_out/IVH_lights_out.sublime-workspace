@@ -1,0 +1,490 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"val",
+				"value_tmp"
+			],
+			[
+				"get",
+				"getmystate"
+			],
+			[
+				"ge",
+				"getneighbours"
+			],
+			[
+				"s",
+				"siglv\tsignal std_logic_vector downto"
+			],
+			[
+				"si",
+				"signal"
+			],
+			[
+				"co",
+				"conv_std_logic_vector"
+			],
+			[
+				"st",
+				"std_logic"
+			],
+			[
+				"in",
+				"init_vector"
+			],
+			[
+				"ent",
+				"entity"
+			],
+			[
+				"std",
+				"std_logic"
+			],
+			[
+				"l",
+				"light_array_t"
+			],
+			[
+				"idx",
+				"IDX_BOTTOM"
+			],
+			[
+				"id",
+				"IDX_RIGHT"
+			],
+			[
+				"ne",
+				"neigbours"
+			],
+			[
+				"IDx",
+				"IDX_LEFT"
+			],
+			[
+				"IDX",
+				"IDX_TOP"
+			],
+			[
+				"for",
+				"for\tfor loop"
+			],
+			[
+				"gam",
+				"game_matrix"
+			],
+			[
+				"parit",
+				"parity_vector"
+			],
+			[
+				"pa",
+				"parity_vector"
+			],
+			[
+				"mask",
+				"mask_vec"
+			],
+			[
+				"fo",
+				"forg\tfor generate"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/project.xml",
+			"settings":
+			{
+				"buffer_size": 530,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/cntr.vhd",
+			"settings":
+			{
+				"buffer_size": 1787,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/top.vhd",
+			"settings":
+			{
+				"buffer_size": 1219,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/game_pack.vhd",
+			"settings":
+			{
+				"buffer_size": 3066,
+				"encoding": "Western (Windows 1252)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/cell.vhd",
+			"settings":
+			{
+				"buffer_size": 2516,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/FITkit project.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/User/FITkit project.sublime-build",
+					""
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"Load"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"Simulate (ModelSIM)"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"Simulate (ISIM)"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"Open in ISE"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"FCMake"
+				],
+				[
+					"Packages/User/FITkit project.sublime-build",
+					"FKTerm"
+				]
+			],
+			[
+				"Packages/User/FITkit project.sublime-build",
+				"Load"
+			]
+		]
+	],
+	"build_varint": "Load",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/c/FitkitSVN/apps/demo/IVH_lights_out",
+		"/c/FitkitSVN/apps/demo/IVH_lights_out/fpga"
+	],
+	"file_history":
+	[
+		"/C/FitkitSVN/apps/demo/terminal/project.xml",
+		"/C/Documents and Settings/student/Plocha/IVH projekt/cell.vhd"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/project.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								517,
+								517
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/cntr.vhd",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1787,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1485,
+								1485
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/VHDL/Syntaxes/VHDL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 430.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/top.vhd",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1219,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								712,
+								712
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/VHDL/Syntaxes/VHDL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/game_pack.vhd",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2303,
+								2303
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/VHDL/Syntaxes/VHDL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/c/FitkitSVN/apps/demo/IVH_lights_out/fpga/cell.vhd",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2516,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								479,
+								488
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/VHDL/Syntaxes/VHDL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 96.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 277.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/FITkit project.sublime-build",
+	"project": "IVH_lights_out.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

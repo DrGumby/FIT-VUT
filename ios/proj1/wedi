@@ -1,0 +1,127 @@
+#!/bin/sh
+POSIXLY_CORRECT=yes
+DATE=$(date +"%Y-%m-%d")    #Sets date format to YYYY-MM-DD
+if [ -z $EDITOR ]; then     #Checks for editor variable, if not set, use the VISUAL variable. If that is not set, use vi editor.
+    if [ -z $VISUAL ]; then
+        EDITOR=vi
+    else
+        EDITOR=$VISUAL
+    fi
+fi
+
+if [ -z $WEDI_RC ]; then    #Check for WEDI_RC variable
+    echo "Error, WEDI_RC not found, please specify the address. Exiting" >&2
+    exit 1
+
+elif [ ! -f $WEDI_RC ]; then    #Check if WEDI_RC addresses a file, if not, a file will be created in the corresponding folder
+    if [ -d $WEDI_RC ]; then
+        touch $WEDI_RC/wedirc
+        export WEDI_RC=$WEDI_RC/wedirc
+    else
+        echo "WEDI_RC does not address a folder nor a file. Error." >&2
+        exit 1
+    fi
+
+fi
+
+
+if [ $# -eq 0 ]; then               #Check if any arguments have been set, if not, use current folder
+    FILENAME="`awk -F "|" '{print $3}' <$WEDI_RC | grep "$PWD\/[^\/]*$" |tail -n1  `"      #regexp: match if awk returns current folder return last edited file
+    if [ -z "$FILENAME" ]; then
+        echo "Error, no files match. Exiting" >&2
+        exit 1
+    else
+        $EDITOR "$FILENAME"               #Open editor
+        echo "`basename "$FILENAME"`|$DATE|`readlink -f "$FILENAME"`" >>$WEDI_RC        #Write to wedi config file
+    fi
+
+
+elif [  -d "$1" ]; then
+    FILENAME="`awk -F "|" '{print $3}' <$WEDI_RC | grep "$1\/[^\/]*$" |tail -n1`"          #Match if awk returns given folder
+    if [ -z "$FILENAME" ]; then
+        echo "Error, no files match. Exiting" >&2
+        exit 1
+    else
+        $EDITOR "$FILENAME"
+        echo "`basename "$FILENAME"`|$DATE|`readlink -f "$FILENAME"`" >>$WEDI_RC
+    fi
+
+
+elif [ -f "$1"  ]; then
+    $EDITOR "$1"
+    echo "`basename "$1"`|$DATE|`readlink -f "$1"`" >>$WEDI_RC
+
+
+
+
+elif [ "$1" = "-m" ]; then          #Most opened file
+    if [ -z $2 ]; then
+        CURRENTFLDR=`pwd`
+
+    elif [ -d $2 ]; then
+        CURRENTFLDR=$2
+    fi
+    FILENAME="`awk -F "|" '{print $3}' <$WEDI_RC | grep "$CURRENTFLDR\/[^\/]*$" | sort | uniq -c | head -n1 | sed 's/^\s*[0-9]*\s//' `"       #From path, match if given path, sort,| awk -F "|" '{print $2}' give number of occurences, find the most edited and open it
+    #| sed 's/^\s*[0-9]*\s//'       #Deletes the whitespace characters and numbers written by uniq-c
+    if [ -z "$FILENAME" ]; then
+        echo "Error, no files match. Exiting" >&2
+        exit 1
+    else
+        $EDITOR "$FILENAME"
+        echo "`basename "$FILENAME"`|$DATE|`readlink -f "$FILENAME"`" >>$WEDI_RC
+    fi
+
+
+
+
+elif [ "$1" = "-l" ]; then
+    if [ -z $2 ]; then
+        CURRENTFLDR=$PWD
+
+    elif [ -d $2 ]; then
+        CURRENTFLDR=$2
+    fi
+    regexp="$CURRENTFLDR/[^/]*$"
+    awk -F "|" -v reg="$regexp" '$3 ~ reg {print $1}' <$WEDI_RC | sort | uniq
+    #awk '{print $3}' <$WEDI_RC | grep "$CURRENTFLDR\/[^\/]*$" | sort | uniq | awk -F "/" '{print $NF}'      #Prints all edited files in config file
+
+
+
+
+elif [ "$1" = "-b" ]; then          #List files edited before DATE
+    if [ -z $2 ]; then
+        echo "Invalid parameters. Exiting" >&2
+        exit 1
+    elif [ -d $2 -o -f $2 ]; then
+        echo "Address specified instead of date. Exiting." >&2
+        exit 1
+    fi
+
+    if [ -z $3 ]; then
+        CURRENTFLDR=`pwd`
+    else
+        CURRENTFLDR=$3
+    fi
+    awk -F "|" -v arg="$2" 'arg >= $2' <$WEDI_RC | grep "$CURRENTFLDR\/[^\/]*$" | awk '{print $1}' | sort | uniq
+
+
+
+elif [ "$1" = "-a" ]; then          #Listo files edited after DATE
+    if [ -z $2 ]; then
+        echo "Invalid parameters. Exiting" >&2
+        exit 1
+    elif [ -d $2 -o -f $2 ]; then
+        echo "Address specified instead of date. Exiting." >&2
+        exit 1
+    fi
+
+    if [ -z $3 ]; then
+        CURRENTFLDR=`pwd`
+    else
+        CURRENTFLDR=$3
+    fi
+    awk -F "|"-v arg="$2" 'arg <= $2' <$WEDI_RC | grep "$CURRENTFLDR\/[^\/]*$" | awk '{print $1}' | sort | uniq
+else
+    echo "Invalid arguments. Exiting." >&2
+    exit 1
+fi

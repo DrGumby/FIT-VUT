@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project outputprefix="test">
+
+	<!--  Project description -->
+	<name>Nazev projektu</name>
+	<author>Autor</author>
+	<authoremail>email@fit.vutbr.cz</authoremail>
+	<revision>1</revision>
+	<description>Popis projektu</description>
+
+	<!--  MCU part -->
+	<mcu>
+	    <file>main.c</file>
+	</mcu>
+
+	<!-- FPGA part -->
+	<fpga architecture="gp" dcmfrequency="20MHz">
+	    <file>top.vhd</file>
+	    <file>cell.vhd</file>
+	    <file>cntr.vhd</file>
+	    <file>game_pack.vhd</file>
+	</fpga>
+
+</project>

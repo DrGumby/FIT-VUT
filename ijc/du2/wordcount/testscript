@@ -1,0 +1,158 @@
+#!/bin/sh
+#
+#tento skript byl vytvoren jako test pro 2. projekt IJC, soubor tail.c
+#
+#vytvoril: Jakub Karpisek
+#
+#datum: 2018/04/14
+
+success=1
+
+echo -n Testing file \'tail.c\' exists.....
+if [ ! -f tail.c ]; then
+	echo FAIL
+	success=0
+else
+	echo OK
+fi
+
+echo -n Testing \'Makefile\' exists.....
+if [ ! -f Makefile ]; then
+	echo FAIL
+	success=0
+else
+	echo OK
+fi
+
+if [ $success -ne 1 ]; then
+	exit 1
+fi
+
+echo -n Attempt to compile.....
+make > /dev/null
+if [ ! -f tail ]; then
+	echo FAIL
+	success=0
+else
+	echo OK
+fi
+
+#-------------------testfile prep----------
+infile=testscriptin
+outfile=testscriptout
+rm -f $infile $outfile
+touch $infile $outfile
+
+one=firstline
+two=secondline
+thr=thirdline
+fou=fourthline
+fiv=fifthline
+six=sixthline
+sev=seventhline
+eig=eightline
+nin=ninethline
+ten=tenthline
+ele=eleventhline
+
+echo $one >> $infile
+echo $two >> $infile
+echo $thr >> $infile
+echo $fou >> $infile
+echo $fiv >> $infile
+echo $six >> $infile
+echo $sev >> $infile
+echo $eig >> $infile
+echo $nin >> $infile
+echo $ten >> $infile
+echo $ele >> $infile
+
+#-----------------TESTS--------------------
+
+echo -n Test with no parameter.....
+./tail < $infile > $outfile
+if [ "`cat $outfile`" = "`tail $infile`" ]; then
+	echo OK
+else
+	echo FAIL
+	echo expected: \'`cat $infile`\'
+	echo actual  : \'`cat $outfile`\'
+	success=0
+fi
+
+echo -n Test with input file.....
+./tail $infile > $outfile
+if [ "`cat $outfile`" = "`tail $infile`" ]; then
+	echo OK
+else
+	echo FAIL
+	echo expected: \'`cat $infile`\'
+	echo actual  : \'`cat $outfile`\'
+	success=0
+fi
+
+echo -n Test with n=2.....
+./tail -n 2 < $infile > $outfile
+if [ "`cat $outfile`" = "`tail -n 2 $infile`" ]; then
+	echo OK
+else
+	echo FAIL
+	echo expected: \'`cat $infile`\'
+	echo actual  : \'`cat $outfile`\'
+	success=0
+fi
+
+echo -n Test with n=2 and input file.....
+./tail -n 2 $infile > $outfile
+if [ "`cat $outfile`" = "`tail -n 2 $infile`" ]; then
+	echo OK
+else
+	echo FAIL
+	echo expected: \'`cat $infile`\'
+	echo actual  : \'`cat $outfile`\'
+	success=0
+fi
+
+echo -n Test with n\<0.....
+./tail -n -1 2> /dev/null
+if [ $? -ne 0 ]; then
+	echo OK
+else
+	echo FAIL
+	echo err code expected, but was \'0\'
+	success=0
+fi
+
+echo -n Test with unexisting file.....
+./tail totallyrandomunexistingfile123 2> /dev/null
+if [ $? -ne 0 ]; then
+	echo OK
+else
+	echo FAIL
+	echo err code expected, but was \'0\'
+	success=0
+fi
+
+echo -n Test with empty file.....
+rm -f $infile
+touch $infile
+./tail $infile > $outfile
+if [ "`cat $outfile`" = "`cat $infile`" ]; then
+	echo OK
+else
+	echo FAIL
+	echo expected: \'`cat $infile`\'
+	echo actual  : \'`cat $outfile`\'
+	success=0
+fi
+
+echo -n Test overall.....
+if [ $success -eq 1 ]; then
+	echo OK
+else
+	echo FAIL
+fi
+
+rm -f $infile $outfile
+
+#-----------------------------end of file testscript-----------
