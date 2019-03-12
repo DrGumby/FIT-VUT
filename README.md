@@ -1,2 +1,3 @@
-# FIT-VUT
-My public repository for finished school projects at FIT VUT Brno
+# FIT VUT Projects
+Be aware that copying code for school projects is at your own responsibility.
+Since you are already here, feel free to explore my solutions.
