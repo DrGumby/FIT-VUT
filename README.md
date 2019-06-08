@@ -1,5 +1,11 @@
 # FIT VUT Projects
-Be aware that copying code for school projects is at your own responsibility.
+
+[CZ] Smíte používat, upravovat a dále šířit jakýkoli uvedený kód. 
+VAROVÁNÍ: Kopírování kódu pro školní projekty může vést k návštěvě disciplinární komise. Použití uvedeného kódu je na vlastní zodpovědnost.
+
+Všechny uvedené zdrojové texty patří k předmětům, které jsem již úspěšně absolvoval.
+
+[EN] You are free to use, change and redistribute any code. Be aware that copying code for school projects is at your own responsibility.
 
 All source files belong to courses I have already finished, so you are not getting me in trouble.
 
@@ -20,3 +26,7 @@ All source files belong to courses I have already finished, so you are not getti
 - IAL
 - INP
 - ISS
+
+### 4th semester
+- IPK
+- IPP
