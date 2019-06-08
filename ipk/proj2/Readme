@@ -1,0 +1,48 @@
+IPK2019, projekt 2 - README
+Autor: Kamil Vojanec <xvojan00@stud.fit.vutbr.cz>
+
+Přiložené soubory:
+Readme (tento soubor)
+ipk-scan.cc
+Makefile
+manual.pdf
+
+Překlad:
+Překlad zdrojového souboru je proveden spuštěním programu make.
+
+Spuštění:
+Program je spoštěn následujícím způsobem:
+
+    ./ipk-scan {-i interface} -pt <port-range> -pu <port-range> [target]
+
+Kde nepovinný parametr -i specifikuje zdrojové rozhraní. Pokud rozhraní není zadáno, vybere se implicitně
+první neloopbackové rozhraní.
+
+Parametr -pt specifikuje porty, jež budou skenovány metodou TCP SYN. 
+Parametr -pu specifikuje porty, jež budou skenovány pomocí UDP.
+Alespoň jeden z parametrů -pt, -pu musí být zadán.
+Formát argumentu <port-range> smí být následující:
+    portX-portY : specifikuje rozsah portů mezi portX a portY.
+    port1,port2,port3 ... : specifikuje skenování konkrétních portů port1, port2, port3, ...
+    portX : specifikuje skenování konkrétního portu portX.
+
+Povinný parametr target specifikuje cílové doménové jméno nebo cílovou IP adresu (podporována je jak
+IPv4, tak IPv6).
+
+Příklad spuštění:
+    
+    ./ipk-scan -i eth0 -pt 80  -pu 199-205 merlin.fit.vutbr.cz
+
+    Provede sken na doméně merlin.fit.vutbr.cz. Skenovány budou porty 199, 200, 201, 202, 203, 204, 205
+    pomocí UDP a port 80 pomocí TCP. Rozhraní, ze kterého bude skenování probíhat je eth0.
+
+Použité zdroje:
+Free Software Foundation (2018) Linux manual pages. Dostupné online. URL: http://man7.org/linux/man-pages/
+Postel, J., "Transmission Control Protocol", STD 7, RFC 793, DOI 10.17487/RFC0793, September 1981, <https://tools.ietf.org/html/rfc793>.
+Postel, J., "User Datagram Protocol", STD 6, RFC 768, DOI 10.17487/RFC0768, August 1980, <https://tools.ietf.org/html/rfc768>.
+Postel, J., "Internet Protocol", STD 5, RFC 791, DOI 10.17487/RFC0791, September 1981, <https://tools.ietf.org/html/rfc791>.
+Postel, J., "Internet Control Message Protocol", STD 5, RFC 792, DOI 10.17487/RFC0792, September 1981, <https://tools.ietf.org/html/rfc792>.
+Deering, S. and R. Hinden, "Internet Protocol, Version 6 (IPv6) Specification", RFC 1883, DOI 10.17487/RFC1883, December 1995, <https://tools.ietf.org/html/rfc1883>.
+Braden, R., Borman, D., and C. Partridge, "Computing the Internet checksum", RFC 1071, DOI 10.17487/RFC1071, September 1988, <https://tools.ietf.org/html/rfc1071>.
+checksum.c. Yvon Feaster, <https://people.cs.clemson.edu/~yfeaste/cybersecurity/CPSC360/code/cCode/UnixExamples/exampleTime1/checksum.c>
+Programming with pcap., Tim Carstens, <https://www.tcpdump.org/pcap.html>
